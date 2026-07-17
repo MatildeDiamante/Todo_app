@@ -13,15 +13,16 @@ export class TodoCollection {
     // no statement required
   }
 
+  // the parameter is a string and the result a number
   addTodo(task: string): number {
     while (this.getTodoById(this.nextId)) {
       this.nextId++;
     }
-    this.todoItems.push(new TodoItem(this, this.nextId, task));
+    this.todoItems.push(new TodoItem(this.nextId, task));
     return this.nextId;
   }
 
-  getTodoById(id: number): TodoItem {
+  getTodoById(id: number): TodoItem | undefined {
     return this.todoItems.find((item) => item.id === id);
   }
   markComplete(id: number, complete: boolean) {

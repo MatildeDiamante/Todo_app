@@ -1,4 +1,4 @@
-// data model that describes the wapplication's data and
+// data model that describes the application's data and
 // the actions that can be performed on it
 
 // class defining id, task and complete properties

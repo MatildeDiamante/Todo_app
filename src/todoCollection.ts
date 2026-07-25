@@ -5,12 +5,13 @@ import { TodoItem } from "./todoItem";
 
 export class TodoCollection {
   private nextId: number = 1;
+  private itemMap = new Map<number, TodoItem>();
 
   constructor(
     public userName: string,
-    public todoItems: TodoItem[] = [],
+    todoItems: TodoItem[] = [],
   ) {
-    // no statement required
+    todoItems.forEach((item) => this.itemMap.set(item.id, item));
   }
 
   // the parameter is a string and the result a number
@@ -18,12 +19,12 @@ export class TodoCollection {
     while (this.getTodoById(this.nextId)) {
       this.nextId++;
     }
-    this.todoItems.push(new TodoItem(this.nextId, task));
+    this.itemMap.set(this.nextId, new TodoItem(this.nextId, task));
     return this.nextId;
   }
 
   getTodoById(id: number): TodoItem | undefined {
-    return this.todoItems.find((item) => item.id === id);
+    return this.itemMap.get(id);
   }
   markComplete(id: number, complete: boolean) {
     const todoItem = this.getTodoById(id);

@@ -11,7 +11,13 @@ let todos: TodoItem[] = [
 let collection: TodoCollection = new TodoCollection("Matilde", todos);
 
 console.clear();
-console.log(`${collection.userName}'s Todo List`);
+//console.log(`${collection.userName}'s Todo List`);
+
+// incomplete items displayed
+console.log(
+  `${collection.userName}'s Todo List` +
+    ` (${collection.getItemCounts().incomplete} items to do)`,
+);
 
 //let newId: number = collection.addTodo("Update code");
 //let todoItem: TodoItem = collection.getTodoById(newId);
@@ -19,6 +25,6 @@ console.log(`${collection.userName}'s Todo List`);
 //collection.addTodo(todoItem);
 
 // item removal
-collection.removeComplete();
+//collection.removeComplete();
 // call to getTodoItem method
 collection.getTodoItems(true).forEach((item) => item.printDetails());

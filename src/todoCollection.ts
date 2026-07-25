@@ -3,6 +3,12 @@
 
 import { TodoItem } from "./todoItem";
 
+// method returning and object that describes the items in the collection
+type ItemCounts = {
+  total: number;
+  incomplete: number;
+};
+
 export class TodoCollection {
   private nextId: number = 1;
   private itemMap = new Map<number, TodoItem>();
@@ -49,5 +55,12 @@ export class TodoCollection {
         this.itemMap.delete(item.id);
       }
     });
+  }
+
+  getItemCounts(): ItemCounts {
+    return {
+      total: this.itemMap.size,
+      incomplete: this.getTodoItems(false).length,
+    };
   }
 }

@@ -34,5 +34,13 @@ class TodoCollection {
             todoItem.complete = complete;
         }
     }
+    // remove complete items from the collection
+    removeComplete() {
+        this.itemMap.forEach((item) => {
+            if (item.complete) {
+                this.itemMap.delete(item.id);
+            }
+        });
+    }
 }
 exports.TodoCollection = TodoCollection;

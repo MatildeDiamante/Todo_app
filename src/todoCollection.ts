@@ -26,6 +26,15 @@ export class TodoCollection {
   getTodoById(id: number): TodoItem | undefined {
     return this.itemMap.get(id);
   }
+
+  // display a list of items
+  // adds a method to access the TodoItem object
+  getTodoItems(includeComplete: boolean): TodoItem[] {
+    return [...this.itemMap.values()].filter(
+      (item) => includeComplete || !item.complete,
+    );
+  }
+
   markComplete(id: number, complete: boolean) {
     const todoItem = this.getTodoById(id);
     if (todoItem) {

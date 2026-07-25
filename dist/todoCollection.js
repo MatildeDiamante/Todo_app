@@ -6,23 +6,27 @@ exports.TodoCollection = void 0;
 const todoItem_1 = require("./todoItem");
 class TodoCollection {
     userName;
-    todoItems;
     nextId = 1;
+    itemMap = new Map();
     constructor(userName, todoItems = []) {
         this.userName = userName;
-        this.todoItems = todoItems;
-        // no statement required
+        todoItems.forEach((item) => this.itemMap.set(item.id, item));
     }
     // the parameter is a string and the result a number
     addTodo(task) {
         while (this.getTodoById(this.nextId)) {
             this.nextId++;
         }
-        this.todoItems.push(new todoItem_1.TodoItem(this.nextId, task));
+        this.itemMap.set(this.nextId, new todoItem_1.TodoItem(this.nextId, task));
         return this.nextId;
     }
     getTodoById(id) {
-        return this.todoItems.find((item) => item.id === id);
+        return this.itemMap.get(id);
+    }
+    // display a list of items
+    // adds a method to access the TodoItem object
+    getTodoItems(includeComplete) {
+        return [...this.itemMap.values()].filter((item) => includeComplete || !item.complete);
     }
     markComplete(id, complete) {
         const todoItem = this.getTodoById(id);

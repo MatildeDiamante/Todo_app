@@ -13,8 +13,10 @@ let collection: TodoCollection = new TodoCollection("Matilde", todos);
 console.clear();
 console.log(`${collection.userName}'s Todo List`);
 
-let newId: number = collection.addTodo("Update code");
-let todoItem: TodoItem = collection.getTodoById(newId)!;
-todoItem.printDetails();
-
+//let newId: number = collection.addTodo("Update code");
+//let todoItem: TodoItem = collection.getTodoById(newId);
+//todoItem.printDetails();
 //collection.addTodo(todoItem);
+
+// call to getTodoItem method
+collection.getTodoItems(true).forEach((item) => item.printDetails());

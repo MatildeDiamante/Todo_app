@@ -1,5 +1,6 @@
-import { TodoItem } from "./todoItem";
-import { TodoCollection } from "./todoCollection";
+import { TodoItem } from "./todoItem.js";
+import { TodoCollection } from "./todoCollection.js";
+import inquirer from "inquirer";
 
 let todos: TodoItem[] = [
   new TodoItem(1, "Answer Emails"),
@@ -10,21 +11,45 @@ let todos: TodoItem[] = [
 
 let collection: TodoCollection = new TodoCollection("Matilde", todos);
 
-console.clear();
+//console.clear();
 //console.log(`${collection.userName}'s Todo List`);
 
-// incomplete items displayed
-console.log(
-  `${collection.userName}'s Todo List` +
-    ` (${collection.getItemCounts().incomplete} items to do)`,
-);
+function displayTodoList(): void {
+  // incomplete items displayed
+  console.log(
+    `${collection.userName}'s Todo List` +
+      ` (${collection.getItemCounts().incomplete} items to do)`,
+  );
+  //let newId: number = collection.addTodo("Update code");
+  //let todoItem: TodoItem = collection.getTodoById(newId);
+  //todoItem.printDetails();
+  //collection.addTodo(todoItem);
 
-//let newId: number = collection.addTodo("Update code");
-//let todoItem: TodoItem = collection.getTodoById(newId);
-//todoItem.printDetails();
-//collection.addTodo(todoItem);
+  // item removal
+  //collection.removeComplete();
+  // call to getTodoItem method
+  collection.getTodoItems(true).forEach((item) => item.printDetails());
+}
 
-// item removal
-//collection.removeComplete();
-// call to getTodoItem method
-collection.getTodoItems(true).forEach((item) => item.printDetails());
+enum Commands {
+  Quit = "Quit",
+}
+
+function promptUser(): void {
+  console.clear();
+  displayTodoList();
+  inquirer
+    .prompt({
+      type: "list",
+      name: "command",
+      message: "Choose option",
+      choices: Object.values(Commands),
+    })
+    .then((answers) => {
+      if (answers["command"] !== Commands.Quit) {
+        promptUser();
+      }
+    });
+}
+
+promptUser();

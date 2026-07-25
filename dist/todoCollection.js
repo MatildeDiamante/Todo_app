@@ -1,10 +1,7 @@
-"use strict";
 // class to collect together the to-do items for a better
 // manageability
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TodoCollection = void 0;
-const todoItem_1 = require("./todoItem");
-class TodoCollection {
+import { TodoItem } from "./todoItem.js";
+export class TodoCollection {
     userName;
     nextId = 1;
     itemMap = new Map();
@@ -17,7 +14,7 @@ class TodoCollection {
         while (this.getTodoById(this.nextId)) {
             this.nextId++;
         }
-        this.itemMap.set(this.nextId, new todoItem_1.TodoItem(this.nextId, task));
+        this.itemMap.set(this.nextId, new TodoItem(this.nextId, task));
         return this.nextId;
     }
     getTodoById(id) {
@@ -49,4 +46,3 @@ class TodoCollection {
         };
     }
 }
-exports.TodoCollection = TodoCollection;

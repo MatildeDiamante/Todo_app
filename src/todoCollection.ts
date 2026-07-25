@@ -1,7 +1,7 @@
 // class to collect together the to-do items for a better
 // manageability
 
-import { TodoItem } from "./todoItem";
+import { TodoItem } from "./todoItem.js";
 
 // method returning and object that describes the items in the collection
 type ItemCounts = {

@@ -1,6 +1,7 @@
 import { TodoItem } from "./todoItem.js";
 import { TodoCollection } from "./todoCollection.js";
 import inquirer from "inquirer";
+import { JsonTodoCollection } from "./jsonTodoCollection.js";
 
 let todos: TodoItem[] = [
   new TodoItem(1, "Answer Emails"),
@@ -9,7 +10,7 @@ let todos: TodoItem[] = [
   new TodoItem(4, "Write review", true),
 ];
 
-let collection: TodoCollection = new TodoCollection("Matilde", todos);
+let collection: TodoCollection = new JsonTodoCollection("Matilde", todos);
 //Filtering to include or exclude complete items
 let showCompleted = true;
 

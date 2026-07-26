@@ -8,6 +8,8 @@ let todos = [
     new TodoItem(4, "Write review", true),
 ];
 let collection = new TodoCollection("Matilde", todos);
+//Filtering to include or exclude complete items
+let showCompleted = true;
 //console.clear();
 //console.log(`${collection.userName}'s Todo List`);
 function displayTodoList() {
@@ -21,10 +23,12 @@ function displayTodoList() {
     // item removal
     //collection.removeComplete();
     // call to getTodoItem method
-    collection.getTodoItems(true).forEach((item) => item.printDetails());
+    //collection.getTodoItems(true).forEach((item) => item.printDetails());
+    collection.getTodoItems(showCompleted).forEach((item) => item.printDetails());
 }
 var Commands;
 (function (Commands) {
+    Commands["Toggle"] = "Show/Hide Completed";
     Commands["Quit"] = "Quit";
 })(Commands || (Commands = {}));
 function promptUser() {
@@ -38,8 +42,11 @@ function promptUser() {
         choices: Object.values(Commands),
     })
         .then((answers) => {
-        if (answers["command"] !== Commands.Quit) {
-            promptUser();
+        switch (answers["command"]) {
+            case Commands.Toggle:
+                showCompleted = !showCompleted;
+                promptUser();
+                break;
         }
     });
 }
